@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json.Fluently", "..\submodu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uMocks", "uMocks\uMocks.csproj", "{6573A5BC-39AA-4482-8ED9-CDFCDA9F0FAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uMocks.Samples", "uMocks.Samples\uMocks.Samples.csproj", "{64AF501E-1BB2-4160-8C6E-EA9CD039F2A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{6573A5BC-39AA-4482-8ED9-CDFCDA9F0FAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6573A5BC-39AA-4482-8ED9-CDFCDA9F0FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6573A5BC-39AA-4482-8ED9-CDFCDA9F0FAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64AF501E-1BB2-4160-8C6E-EA9CD039F2A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AF501E-1BB2-4160-8C6E-EA9CD039F2A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AF501E-1BB2-4160-8C6E-EA9CD039F2A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AF501E-1BB2-4160-8C6E-EA9CD039F2A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
