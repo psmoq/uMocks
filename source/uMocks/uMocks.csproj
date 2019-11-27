@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\submodules\Json.Fluently\source\Json.Fluently\Json.Fluently.csproj" />
+  </ItemGroup>
+
 </Project>
