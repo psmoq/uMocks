@@ -244,6 +244,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\submodules\Json.Fluently\source\Json.Fluently\Json.Fluently.csproj">
+      <Project>{aebf8b02-960b-4cd3-9891-20c4d2e6db5a}</Project>
+      <Name>Json.Fluently</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uMocks\uMocks.csproj">
       <Project>{6573a5bc-39aa-4482-8ed9-cdfcda9f0fac}</Project>
       <Name>uMocks</Name>
