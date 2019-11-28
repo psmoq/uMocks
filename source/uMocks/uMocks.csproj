@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -226,7 +226,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\Abstract\IGridEditorBuilder.cs" />
+    <Compile Include="Builders\Abstract\IPublishedContentMockBuilder.cs" />
+    <Compile Include="Builders\GridEditorBuilder.cs" />
+    <Compile Include="Builders\PublishedContentMockBuilder.cs" />
+    <Compile Include="Extensions\GridBuilderExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublishedContentMockSession.cs" />
+    <Compile Include="Syntax\IGridEditorContentSyntax.cs" />
+    <Compile Include="Syntax\IGridEditorLayoutSyntax.cs" />
+    <Compile Include="Syntax\IGridEditorSyntax.cs" />
+    <Compile Include="Syntax\IGridRowSyntax.cs" />
+    <Compile Include="Syntax\IGridSectionSyntax.cs" />
+    <Compile Include="Syntax\IPublishedContentSyntax.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\submodules\Json.Fluently\source\Json.Fluently\Json.Fluently.csproj">
