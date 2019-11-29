@@ -38,6 +38,55 @@ You can create complex relations between mocked documents which are always being
             Assert.AreEqual(2, doc1.Children.OfTypes("documentTypeAlias", "anotherDocumentTypeAlias").Count());
         }
 
+**IPublishedContentMockBuilder** gives ability to mock almost all available IPublishedContent properties and methods. Take a look on example:
+
+        [TestMethod]
+        public void PublishedContent_ShouldBeMockedProperly()
+        {
+            // Arrange
+
+            var mockSession = PublishedContentMockSession.CreateNew();
+            var doc1 = mockSession.PublishedContentBuilder
+                .PrepareNew("documentTypeAlias", documentId: 1001)
+                .WithProperty("propAlias", "propValue")
+                .Build();
+
+            var doc2 = mockSession.PublishedContentBuilder
+                .PrepareNew("documentTypeAlias", documentId: 1002)
+                .OfParent(doc1)
+                .Build();
+
+            var doc3 = mockSession.PublishedContentBuilder
+                .PrepareNew("documentTypeAlias", documentId: 1003)
+                .OfParent(doc2)
+                .Build();
+
+            var doc4 = mockSession.PublishedContentBuilder
+                .PrepareNew("documentTypeAlias", documentId: 1004)
+                .OfParent(doc2)
+                .Build();
+
+            // Assert
+
+            // getting basic content data are supported in all possible ways
+            Assert.AreEqual("documentTypeAlias", doc1.DocumentTypeAlias);
+            Assert.AreEqual("documentTypeAlias", doc1.ContentType.Alias);
+            Assert.AreEqual("propValue",doc1.GetPropertyValue<string>("propAlias"));
+            Assert.AreEqual("propValue", doc1.GetPropertyValue("propAlias"));
+            Assert.AreEqual("propValue", doc1.GetProperty("propAlias").Value);
+            Assert.AreEqual("propValue", ((IPublishedProperty)doc1["propAlias"]).Value);
+
+            // parent-children relations behave as expected in scope of single mock session - relations are dynamically updated
+            Assert.AreEqual("-1,1001,1002,1003", doc3.Path);
+            Assert.AreEqual(2, doc2.Children.Count());
+            Assert.AreEqual(1002, doc4.Parent.Id);
+            Assert.AreEqual(2, doc4.ContentSet.Count()); // siblings count
+
+            // most extension methods evaluates properly (methods independent on HttpContext and ApplicationContext)
+            Assert.AreEqual(1004, doc3.FollowingSibling().Id); // following sibling of doc3 => doc4.Id
+            Assert.AreEqual(null, doc3.PrecedingSibling()); // no preceding sibling of doc3 found
+        }
+
 ## IGridEditorBuilder
 
 Umbraco 7 provides powerful content editor called **[Grid Layout](https://our.umbraco.com/documentation/getting-started/backoffice/property-editors/built-in-property-editors/grid-layout/)** which allows to define rich content structures very easily. Grid Layout editor stores underlying model in complex JSON structure so it's often very inconvinient to write unit tests for grid layout related logic. **uMocks** provides fluent Grid Layout builder which gives you maximum freedom of grid content definition. You can inject it into property value without a hassle then. Together with **IPublishedContentMockBuilder** you will be able to unit test whatever service you have. Example layout definition with custom component inside:
