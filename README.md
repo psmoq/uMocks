@@ -14,7 +14,7 @@ You can create complex relations between mocked documents which are always being
             // Arrange
 
             var mockSession = PublishedContentMockSession.CreateNew(); // create new mock session
-            var doc1 = mockSession.PublishedContentBuilder // user IPublishedContentMockBuilder to build your content fluently
+            var doc1 = mockSession.PublishedContentBuilder // use IPublishedContentMockBuilder to build your content fluently
                 .PrepareNew("documentTypeAlias", documentId: 1001)
                 .WithProperty("propAlias", "propValue")
                 .WithChildren(stx => new[] {stx.PrepareNew("anotherDocumentTypeAlias", documentId: 1002)})
