@@ -6,9 +6,9 @@ namespace uMocks.Syntax
 {
   public interface IGridEditorContentSyntax : IGridEditorSyntax
   {
-    IGridEditorContentSyntax PutControl(int sectionIndex, int rowIndex, int columnIndex, string alias, JObject value);
+    IGridEditorContentSyntax PutGridComponent(int sectionIndex, int rowIndex, int columnIndex, string alias, JObject value);
 
-    IGridEditorContentSyntax PutControl(int sectionIndex, int rowIndex, int columnIndex,
+    IGridEditorContentSyntax PutGridComponent(int sectionIndex, int rowIndex, int columnIndex,
       string alias, Func<IFluentJsonBuilder, IJsonObjectBuilder> objectSyntaxFunc);
   }
 }

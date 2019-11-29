@@ -37,7 +37,7 @@ namespace uMocks.Builders
         return new GridSectionSyntax(this, gridSection);
       }
 
-      public IGridEditorContentSyntax PutControl(int sectionIndex, int rowIndex, int columnIndex, string alias, JObject value)
+      public IGridEditorContentSyntax PutGridComponent(int sectionIndex, int rowIndex, int columnIndex, string alias, JObject value)
       {
         var section = _gridSections.ElementAtOrDefault(sectionIndex);
         if (section == null)
@@ -56,14 +56,14 @@ namespace uMocks.Builders
         return this;
       }
 
-      public IGridEditorContentSyntax PutControl(int sectionIndex, int rowIndex, int columnIndex,
+      public IGridEditorContentSyntax PutGridComponent(int sectionIndex, int rowIndex, int columnIndex,
         string alias, Func<IFluentJsonBuilder, IJsonObjectBuilder> objectSyntaxFunc)
       {
         var builder = new FluentJsonBuilder();
 
         var obj = objectSyntaxFunc(builder).Build();
 
-        return PutControl(sectionIndex, rowIndex, columnIndex, alias, obj);
+        return PutGridComponent(sectionIndex, rowIndex, columnIndex, alias, obj);
       }
 
       public JObject Build()
