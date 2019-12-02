@@ -124,12 +124,17 @@ namespace uMocks.Samples
           .WithProperty("propertyName2", "propertyValue2"))
         .Build();
 
+      // get controls manually
       var controlTokens = gridEditor.SelectTokens("$..controls[*]").ToArray();
+
+      // or use extension methods
+      var gridComponent = gridEditor.GetControl(0, 0, 0, "componentAlias");
+      var gridComponentValue = gridComponent.ExtractValue();
 
       // Assert
 
       // grid editor should have one component defined
-      Assert.AreEqual(1, controlTokens.Count()); 
+      Assert.AreEqual(1, controlTokens.Length); 
 
       var control = controlTokens.First();
 
