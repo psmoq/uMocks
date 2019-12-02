@@ -16,6 +16,10 @@ namespace uMocks.Syntax
 
     IPublishedContentSyntax CreatedAt(DateTime createDate);
 
+    IPublishedContentSyntax CreatedBy(string name, int creatorId = 0);
+
+    IPublishedContentSyntax WrittenBy(string name, int writerId = 0);
+
     IPublishedContentSyntax UpdatedAt(DateTime updateDate);
 
     IPublishedContentSyntax WithUrl(string url);

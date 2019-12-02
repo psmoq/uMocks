@@ -141,9 +141,25 @@ namespace uMocks.Builders
         return this;
       }
 
+      public IPublishedContentSyntax CreatedBy(string name, int creatorId = 0)
+      {
+        PublishedContentMock.Setup(c => c.CreatorName).Returns(name);
+        PublishedContentMock.Setup(c => c.CreatorId).Returns(creatorId);
+
+        return this;
+      }
+
       public IPublishedContentSyntax UpdatedAt(DateTime updateDate)
       {
         PublishedContentMock.Setup(c => c.UpdateDate).Returns(updateDate);
+
+        return this;
+      }
+
+      public IPublishedContentSyntax WrittenBy(string name, int writerId = 0)
+      {
+        PublishedContentMock.Setup(c => c.WriterName).Returns(name);
+        PublishedContentMock.Setup(c => c.WriterId).Returns(writerId);
 
         return this;
       }
