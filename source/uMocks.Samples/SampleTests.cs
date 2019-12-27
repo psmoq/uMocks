@@ -125,8 +125,21 @@ namespace uMocks.Samples
         {
           { "style",  "value" }
         })
+        .SubmitRow()
+        .AddSection(12)
+        .AddFullWidthRow(config: new Dictionary<string, string>
+        {
+          { "key",  "value" }
+        }, styles: new Dictionary<string, string>
+        {
+          { "style",  "value" }
+        })
+        .SubmitRow()
         .SubmitLayout()
         .PutGridComponent(sectionIndex: 0, rowIndex: 0, columnIndex: 0, alias: "componentAlias", b => b.CreateNew()
+          .WithProperty("propertyName1", "propertyValue1")
+          .WithProperty("propertyName2", "propertyValue2"))
+        .PutGridComponent(sectionIndex: 1, rowIndex: 0, columnIndex: 0, alias: "componentAlias", b => b.CreateNew()
           .WithProperty("propertyName1", "propertyValue1")
           .WithProperty("propertyName2", "propertyValue2"))
         .Build();

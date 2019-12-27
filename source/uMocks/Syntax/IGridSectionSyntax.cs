@@ -4,6 +4,6 @@
   {
     IGridRowSyntax AddRow(string rowLayoutName);
 
-    IGridEditorContentSyntax SubmitLayout();
+    IGridEditorLayoutSyntax SubmitRow();
   }
 }

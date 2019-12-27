@@ -30,6 +30,11 @@ namespace uMocks.Builders
         _layoutName = layoutName;
       }
 
+      public IGridEditorContentSyntax SubmitLayout()
+      {
+        return this;
+      }
+
       public IGridSectionSyntax AddSection(int layoutColumnCount)
       {
         var gridSection = new GridSection(layoutColumnCount);
@@ -147,13 +152,13 @@ namespace uMocks.Builders
 
       private class GridSectionSyntax : IGridSectionSyntax
       {
-        private readonly IGridEditorContentSyntax _gridEditorContentSyntax;
+        private readonly IGridEditorLayoutSyntax _gridEditorLayoutSyntax;
 
         private readonly GridSection _gridSection;
 
-        public GridSectionSyntax(IGridEditorContentSyntax gridEditorContentSyntax, GridSection section)
+        public GridSectionSyntax(IGridEditorLayoutSyntax gridEditorLayoutSyntax, GridSection section)
         {
-          _gridEditorContentSyntax = gridEditorContentSyntax;
+          _gridEditorLayoutSyntax = gridEditorLayoutSyntax;
           _gridSection = section;
         }
 
@@ -166,9 +171,9 @@ namespace uMocks.Builders
           return new GridRowSyntax(this, row);
         }
 
-        public IGridEditorContentSyntax SubmitLayout()
+        public IGridEditorLayoutSyntax SubmitRow()
         {
-          return _gridEditorContentSyntax;
+          return _gridEditorLayoutSyntax;
         }
       }
 
