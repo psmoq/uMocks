@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Umbraco.Core.Models;
@@ -117,7 +118,13 @@ namespace uMocks.Samples
       var gridEditor = mockSession.GridEditorBuilder
         .CreateNew("1 column layout")
         .AddSection(12)
-        .AddFullWidthRow()
+        .AddFullWidthRow(config: new Dictionary<string, string>
+        {
+          { "key",  "value" }
+        }, styles: new Dictionary<string, string>
+        {
+          { "style",  "value" }
+        })
         .SubmitLayout()
         .PutGridComponent(sectionIndex: 0, rowIndex: 0, columnIndex: 0, alias: "componentAlias", b => b.CreateNew()
           .WithProperty("propertyName1", "propertyValue1")
