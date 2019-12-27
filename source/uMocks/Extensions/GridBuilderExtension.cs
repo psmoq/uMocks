@@ -5,7 +5,7 @@ namespace uMocks.Extensions
 {
   public static class GridBuilderExtension
   {
-    public static IGridSectionSyntax AddFullWidthRow(this IGridSectionSyntax stx,
+    public static IGridSectionColumnSyntax AddFullWidthRow(this IGridSectionSyntax stx,
       IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
       var row = stx.AddRow("full width");
@@ -19,7 +19,7 @@ namespace uMocks.Extensions
       return row.WithColumns(1);
     }
 
-    public static IGridSectionSyntax AddHalvedRow(this IGridSectionSyntax stx,
+    public static IGridSectionColumnSyntax AddHalvedRow(this IGridSectionSyntax stx,
       IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
       var row = stx.AddRow("6-6");
@@ -33,7 +33,7 @@ namespace uMocks.Extensions
       return row.WithColumns(2);
     }
 
-    public static IGridSectionSyntax AddOneThirdRow(this IGridSectionSyntax stx,
+    public static IGridSectionColumnSyntax AddOneThirdRow(this IGridSectionSyntax stx,
       IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
       var row = stx.AddRow("4-4-4");
@@ -47,7 +47,7 @@ namespace uMocks.Extensions
       return row.WithColumns(3);
     }
 
-    public static IGridSectionSyntax AddQuarteredRow(this IGridSectionSyntax stx,
+    public static IGridSectionColumnSyntax AddQuarteredRow(this IGridSectionSyntax stx,
       IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
       var row = stx.AddRow("3-3-3-3");
@@ -61,7 +61,7 @@ namespace uMocks.Extensions
       return row.WithColumns(4);
     }
 
-    public static IGridSectionSyntax AddFourToEightRow(this IGridSectionSyntax stx,
+    public static IGridSectionColumnSyntax AddFourToEightRow(this IGridSectionSyntax stx,
       IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
       var row = stx.AddRow("4-8");
@@ -75,7 +75,7 @@ namespace uMocks.Extensions
       return row.WithColumns(2);
     }
 
-    public static IGridSectionSyntax AddEightToFourRow(this IGridSectionSyntax stx,
+    public static IGridSectionColumnSyntax AddEightToFourRow(this IGridSectionSyntax stx,
       IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
       var row = stx.AddRow("8-4");

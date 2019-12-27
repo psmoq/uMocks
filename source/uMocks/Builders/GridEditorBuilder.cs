@@ -118,6 +118,8 @@ namespace uMocks.Builders
           .WithProperty("allowAll", true) // TODO: parametrize this value later
         //.WithArray("allowed", new JArray()) // TODO: parametrize this value later
           .WithProperty("hasConfig", gridRowColumn.HasConfig)
+          .WithObject("config", GetDictionaryObject(gridRowColumn.Config))
+          .WithObject("styles", GetDictionaryObject(gridRowColumn.Styles))
           .WithArray("controls", stx => GetGridColumnControls(gridRowColumn, stx))
           .Build()).ToArray());
       }
@@ -150,7 +152,7 @@ namespace uMocks.Builders
         return Guid.NewGuid().ToString();
       }
 
-      private class GridSectionSyntax : IGridSectionSyntax
+      private class GridSectionSyntax : IGridSectionSyntax, IGridSectionColumnSyntax
       {
         private readonly IGridEditorLayoutSyntax _gridEditorLayoutSyntax;
 
@@ -171,7 +173,43 @@ namespace uMocks.Builders
           return new GridRowSyntax(this, row);
         }
 
-        public IGridEditorLayoutSyntax SubmitRow()
+        public IGridSectionColumnSyntax ConfigureColumn(int columnIndex, IDictionary<string, string> configItems)
+        {
+          var lastAddedRow = _gridSection.Rows.LastOrDefault();
+          if (lastAddedRow == null)
+            throw new Exception("There is no row defined in section layout. Please add row first.");
+
+          var column = lastAddedRow.Columns.ElementAtOrDefault(columnIndex);
+          if (column == null)
+            throw new Exception("There is no row column at given index.");
+
+          column.Config.Clear();
+
+          foreach (var configItem in configItems)
+            column.Config.Add(configItem);
+
+          return this;
+        }
+
+        public IGridSectionColumnSyntax ApplyColumnStyles(int columnIndex, IDictionary<string, string> styleItems)
+        {
+          var lastAddedRow = _gridSection.Rows.LastOrDefault();
+          if (lastAddedRow == null)
+            throw new Exception("There is no row defined in section layout. Please add row first.");
+
+          var column = lastAddedRow.Columns.ElementAtOrDefault(columnIndex);
+          if (column == null)
+            throw new Exception("There is no row column at given index.");
+
+          column.Styles.Clear();
+
+          foreach (var styleItem in styleItems)
+            column.Styles.Add(styleItem);
+
+          return this;
+        }
+
+        public IGridEditorLayoutSyntax SubmitSection()
         {
           return _gridEditorLayoutSyntax;
         }
@@ -179,11 +217,11 @@ namespace uMocks.Builders
 
       private class GridRowSyntax : IGridRowSyntax
       {
-        private readonly IGridSectionSyntax _gridSectionSyntax;
+        private readonly IGridSectionColumnSyntax _gridSectionSyntax;
 
         private readonly GridRow _gridRow;
 
-        public GridRowSyntax(IGridSectionSyntax gridSectionSyntax, GridRow row)
+        public GridRowSyntax(IGridSectionColumnSyntax gridSectionSyntax, GridRow row)
         {
           _gridSectionSyntax = gridSectionSyntax;
           _gridRow = row;
@@ -209,7 +247,7 @@ namespace uMocks.Builders
           return this;
         }
 
-        public IGridSectionSyntax WithColumns(int columnCount)
+        public IGridSectionColumnSyntax WithColumns(int columnCount)
         {
           for (int i = 0; i < columnCount; i++)
             _gridRow.Columns.Add(new GridColumn());
@@ -256,11 +294,17 @@ namespace uMocks.Builders
       {
         public ICollection<GridControl> Controls { get; }
 
-        public bool HasConfig { get; set; }
+        public bool HasConfig => Config.Any();
+
+        public IDictionary<string, string> Config { get; }
+
+        public IDictionary<string, string> Styles { get; }
 
         public GridColumn()
         {
           Controls = new List<GridControl>();
+          Config = new Dictionary<string, string>();
+          Styles = new Dictionary<string, string>();
         }
       }
 

@@ -239,6 +239,7 @@
     <Compile Include="Syntax\IGridEditorLayoutSyntax.cs" />
     <Compile Include="Syntax\IGridEditorSyntax.cs" />
     <Compile Include="Syntax\IGridRowSyntax.cs" />
+    <Compile Include="Syntax\IGridSectionColumnSyntax.cs" />
     <Compile Include="Syntax\IGridSectionSyntax.cs" />
     <Compile Include="Syntax\IPublishedContentSyntax.cs" />
   </ItemGroup>
