@@ -4,7 +4,9 @@ using System.Linq;
 using Json.Fluently.Builders;
 using Json.Fluently.Builders.Abstract;
 using Json.Fluently.Syntax;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using uMocks.Builders.Abstract;
 using uMocks.Syntax;
 
@@ -95,7 +97,9 @@ namespace uMocks.Builders
         return arraySyntax.WithItems(section.Rows.Select(gridRow => builder.CreateNew()
           .WithProperty("id", GetComponentId())
           .WithProperty("name", gridRow.LayoutName)
-          .WithProperty("hasConfig", false) // TODO: parametrize this value later
+          .WithProperty("hasConfig", gridRow.HasConfig)
+          .WithObject("config", GetDictionaryObject(gridRow.Config))
+          .WithObject("styles", GetDictionaryObject(gridRow.Styles))
           .WithArray("areas", stx => GetGridRowColumns(gridRow, stx))
           .Build()).ToArray());
       }
@@ -108,7 +112,7 @@ namespace uMocks.Builders
           .WithProperty("grid", 12 / row.Columns.Count)
           .WithProperty("allowAll", true) // TODO: parametrize this value later
         //.WithArray("allowed", new JArray()) // TODO: parametrize this value later
-          .WithProperty("hasConfig", false) // TODO: parametrize this value later
+          .WithProperty("hasConfig", gridRowColumn.HasConfig)
           .WithArray("controls", stx => GetGridColumnControls(gridRowColumn, stx))
           .Build()).ToArray());
       }
@@ -126,6 +130,14 @@ namespace uMocks.Builders
             .WithProperty("alias", control.Alias))
           .WithProperty("active", true)
           .Build()).ToArray());
+      }
+
+      private JObject GetDictionaryObject(IDictionary<string, string> dictionary)
+      {
+        return  JObject.FromObject(dictionary, new JsonSerializer
+        {
+          ContractResolver = new CamelCasePropertyNamesContractResolver()
+        });
       }
 
       private string GetComponentId()
@@ -172,6 +184,26 @@ namespace uMocks.Builders
           _gridRow = row;
         }
 
+        public IGridRowSyntax WithConfig(IDictionary<string, string> configItems)
+        {
+          _gridRow.Config.Clear();
+
+          foreach (var configItem in configItems)
+            _gridRow.Config.Add(configItem);
+
+          return this;
+        }
+
+        public IGridRowSyntax WithStyles(IDictionary<string, string> styleItems)
+        {
+          _gridRow.Styles.Clear();
+
+          foreach (var styleItem in styleItems)
+            _gridRow.Styles.Add(styleItem);
+
+          return this;
+        }
+
         public IGridSectionSyntax WithColumns(int columnCount)
         {
           for (int i = 0; i < columnCount; i++)
@@ -198,18 +230,28 @@ namespace uMocks.Builders
       {
         public string LayoutName { get;  }
 
+        public bool HasConfig => Config.Any();
+
+        public IDictionary<string, string> Config { get; }
+
+        public IDictionary<string, string> Styles { get; }
+
         public ICollection<GridColumn> Columns { get; }
 
         public GridRow(string layoutName)
         {
           LayoutName = layoutName;
           Columns = new List<GridColumn>();
+          Config = new Dictionary<string, string>();
+          Styles = new Dictionary<string, string>();
         }
       }
 
       private class GridColumn
       {
         public ICollection<GridControl> Controls { get; }
+
+        public bool HasConfig { get; set; }
 
         public GridColumn()
         {

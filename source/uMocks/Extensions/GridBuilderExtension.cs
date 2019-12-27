@@ -1,37 +1,92 @@
-﻿using uMocks.Syntax;
+﻿using System.Collections.Generic;
+using uMocks.Syntax;
 
 namespace uMocks.Extensions
 {
   public static class GridBuilderExtension
   {
-    public static IGridSectionSyntax AddFullWidthRow(this IGridSectionSyntax stx)
+    public static IGridSectionSyntax AddFullWidthRow(this IGridSectionSyntax stx,
+      IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
-      return stx.AddRow("full width").WithColumns(1);
+      var row = stx.AddRow("full width");
+
+      if (config != null)
+        row = row.WithConfig(config);
+
+      if (styles != null)
+        row = row.WithStyles(styles);
+
+      return row.WithColumns(1);
     }
 
-    public static IGridSectionSyntax AddHalvedRow(this IGridSectionSyntax stx)
+    public static IGridSectionSyntax AddHalvedRow(this IGridSectionSyntax stx,
+      IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
-      return stx.AddRow("6-6").WithColumns(2);
+      var row = stx.AddRow("6-6");
+
+      if (config != null)
+        row = row.WithConfig(config);
+
+      if (styles != null)
+        row = row.WithStyles(styles);
+
+      return row.WithColumns(2);
     }
 
-    public static IGridSectionSyntax AddOneThirdRow(this IGridSectionSyntax stx)
+    public static IGridSectionSyntax AddOneThirdRow(this IGridSectionSyntax stx,
+      IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
-      return stx.AddRow("4-4-4").WithColumns(3);
+      var row = stx.AddRow("4-4-4");
+
+      if (config != null)
+        row = row.WithConfig(config);
+
+      if (styles != null)
+        row = row.WithStyles(styles);
+
+      return row.WithColumns(3);
     }
 
-    public static IGridSectionSyntax AddQuarteredRow(this IGridSectionSyntax stx)
+    public static IGridSectionSyntax AddQuarteredRow(this IGridSectionSyntax stx,
+      IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
-      return stx.AddRow("3-3-3-3").WithColumns(4);
+      var row = stx.AddRow("3-3-3-3");
+
+      if (config != null)
+        row = row.WithConfig(config);
+
+      if (styles != null)
+        row = row.WithStyles(styles);
+
+      return row.WithColumns(4);
     }
 
-    public static IGridSectionSyntax AddFourToEightRow(this IGridSectionSyntax stx)
+    public static IGridSectionSyntax AddFourToEightRow(this IGridSectionSyntax stx,
+      IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
-      return stx.AddRow("4-8").WithColumns(2);
+      var row = stx.AddRow("4-8");
+
+      if (config != null)
+        row = row.WithConfig(config);
+
+      if (styles != null)
+        row = row.WithStyles(styles);
+
+      return row.WithColumns(2);
     }
 
-    public static IGridSectionSyntax AddEightToFourRow(this IGridSectionSyntax stx)
+    public static IGridSectionSyntax AddEightToFourRow(this IGridSectionSyntax stx,
+      IDictionary<string, string> config = null, IDictionary<string, string> styles = null)
     {
-      return stx.AddRow("8-4").WithColumns(2);
+      var row = stx.AddRow("8-4");
+
+      if (config != null)
+        row = row.WithConfig(config);
+
+      if (styles != null)
+        row = row.WithStyles(styles);
+
+      return row.WithColumns(2);
     }
   }
 }
